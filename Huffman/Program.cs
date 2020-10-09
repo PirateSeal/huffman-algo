@@ -25,6 +25,11 @@ namespace Huffman
             BitArray encoded = TextUtils.Encode(text, node);
             Console.WriteLine("Binary size: " + bin.Length);
             Console.WriteLine("Encoded binary size: " + encoded.Length);
+
+            byte[] bytes = new byte[encoded.Length / 8 + (encoded.Length % 8 == 0 ? 0 : 1)];
+            encoded.CopyTo(bytes, 0);
+
+            File.WriteAllBytes("encoded", bytes);
             Console.ReadLine();
         }
     }
