@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Huffman
 {
@@ -21,10 +22,9 @@ namespace Huffman
             foreach (char letter in frequencies.Keys) asciiChars += letter;
             TextUtils.SaveDictionnary(asciiChars, node);
 
-            //BitArray encoded = TextUtils.Encode(text, node);
-            //Console.WriteLine("Binary size: " + bin.Length);
-            //Console.WriteLine("Encoded binary size: " + encoded.Length);
-
+            BitArray encoded = TextUtils.Encode(text, node);
+            Console.WriteLine("Binary size: " + bin.Length);
+            Console.WriteLine("Encoded binary size: " + encoded.Length);
             Console.ReadLine();
         }
     }
