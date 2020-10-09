@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,21 @@ namespace Huffman
         {
             string bin = text.Aggregate("", (current, b) => current + b);
             Console.WriteLine(bin);
+        }
+
+        public static void GetCharNbr(string text)
+        {
+            var occurrences = new Dictionary<char, int>();
+
+            {
+                foreach (char c in text)
+                    if (!occurrences.ContainsKey(c)) occurrences.Add(c, 1);
+                    else occurrences[c]++;
+            }
+            foreach (var occurrence in occurrences)
+            {
+                Console.WriteLine("{0} occurred {1} times",occurrence.Key,occurrence.Value);
+            }
         }
 
         public static string GetText()
