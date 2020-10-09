@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,14 @@ namespace Huffman
             string bin = result.Aggregate("", (current, b) => current + b);
 
             Console.WriteLine(bin);
+            var path = "Output.txt";
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(bin);
+            }
+
+            Console.ReadLine();
+
         }
 
         public static string GetText()
