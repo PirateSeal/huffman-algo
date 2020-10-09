@@ -11,10 +11,9 @@ namespace Huffman
             TextUtils.PrintBin(bin);
             TextUtils.GetTextLength(text);
             TextUtils.GetTextLength(bin);
-            TextUtils.GetCharNbr(text);
-
+            
+            TextUtils.BuildTree(TextUtils.GetCharNbr(text));
             Console.ReadLine();
-
         }
     }
 }

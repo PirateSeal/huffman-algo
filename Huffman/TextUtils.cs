@@ -13,7 +13,7 @@ namespace Huffman
             Console.WriteLine(bin);
         }
 
-        public static void GetCharNbr(string text)
+        public static Dictionary<char, int> GetCharNbr(string text)
         {
             var occurrences = new Dictionary<char, int>();
 
@@ -26,6 +26,46 @@ namespace Huffman
             {
                 Console.WriteLine("{0} occurred {1} times",occurrence.Key,occurrence.Value);
             }
+            return occurrences;
+        }
+
+        public static Node BuildTree(Dictionary<char, int> frequencies)
+        {
+            Node root = null;
+            List<Node> nodes = frequencies.Select(f =>
+            {
+                return new Node()
+                {
+                    Char = f.Key,
+                    Frequency = f.Value
+                };
+            }).ToList();
+
+            while(nodes.Count > 1)
+            {
+                List<Node> orderedByFrequency = nodes.OrderBy(n => n.Frequency).ToList();
+                if (orderedByFrequency.Count >= 2)
+                {
+
+                    List<Node> taken = orderedByFrequency.Take(2).ToList();
+
+                    Node parent = new Node()
+                    {
+                        Char = '*',
+                        Frequency = taken[0].Frequency + taken[1].Frequency,
+                        NodeLeft = taken[0],
+                        NodeRight = taken[1]
+                    };
+
+                    nodes.Remove(taken[0]);
+                    nodes.Remove(taken[1]);
+                    nodes.Add(parent);
+                }
+
+                root = nodes.FirstOrDefault();
+            }
+
+            return root;
         }
 
         public static string GetText()
