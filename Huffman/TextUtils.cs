@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -56,7 +58,6 @@ namespace Huffman
                         NodeLeft = taken[0],
                         NodeRight = taken[1]
                     };
-
                     nodes.Remove(taken[0]);
                     nodes.Remove(taken[1]);
                     nodes.Add(parent);
@@ -64,7 +65,6 @@ namespace Huffman
 
                 root = nodes.FirstOrDefault();
             }
-
             return root;
         }
 
@@ -96,5 +96,35 @@ namespace Huffman
             return string.Join("",
                 data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
+
+        public static BitArray Encode(string source, Node node)
+        {
+            List<bool> encodedSource = new List<bool>();
+            for (int i = 0; i < source.Length; i++)
+            {
+                List<bool> encodedSymbol = node.Traverse(source[i], new List<bool>());
+                encodedSource.AddRange(encodedSymbol);
+            }
+
+            BitArray bits = new BitArray(encodedSource.ToArray());
+
+            return bits;
+        }
+
+        public static void SaveDictionnary(string source, Node node)
+        {
+            string file = "";
+            for (int i = 0; i < source.Length; i++)
+            {
+                List<bool> encodedSymbol = node.Traverse(source[i], new List<bool>());
+                file += source[i] + ": ";
+                foreach (bool bit in new BitArray(encodedSymbol.ToArray())) file += Convert.ToInt32(bit);
+                file += "\n";
+            }
+
+            file.Replace("\n", Environment.NewLine);
+            using (StreamWriter sw = File.CreateText("dico.txt")) sw.WriteLine(file);
+        }
+
     }
 }
