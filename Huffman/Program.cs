@@ -13,6 +13,7 @@ namespace Huffman
             string bin = ToBinary(text);
             PrintBin(bin);
             GetTextLength(text);
+            Console.ReadLine();
         }
 
         public static void PrintBin(string text)
@@ -35,13 +36,11 @@ namespace Huffman
 
         public static void GetTextLength(string text)
         {
-            var x = 0;
+            var nbChar = 0;
             foreach (char c in text)
-            {
-                x++;
-            }
+                nbChar++;
 
-            Console.WriteLine("text length is : {0}", x);
+            Console.WriteLine("text length is : {0}", nbChar);
         }
 
         public static String ToBinary(string text)
