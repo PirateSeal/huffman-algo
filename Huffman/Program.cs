@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -8,9 +9,15 @@ namespace Huffman
     {
         public static void Main(string[] args)
         {
-            var result = ToBinary(GetText());
-            string bin = result.Aggregate("", (current, b) => current + b);
+            string text = GetText();
+            string bin = ToBinary(text);
+            PrintBin(bin);
+            GetTextLength(text);
+        }
 
+        public static void PrintBin(string text)
+        {
+            string bin = text.Aggregate("", (current, b) => current + b);
             Console.WriteLine(bin);
         }
 
@@ -26,11 +33,22 @@ namespace Huffman
             throw new Exception();
         }
 
+        public static void GetTextLength(string text)
+        {
+            var x = 0;
+            foreach (char c in text)
+            {
+                x++;
+            }
+
+            Console.WriteLine("text length is : {0}", x);
+        }
+
         public static String ToBinary(string text)
         {
             var data = Encoding.ASCII.GetBytes(text);
 
-            return string.Join(" ",
+            return string.Join("",
                 data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
     }
