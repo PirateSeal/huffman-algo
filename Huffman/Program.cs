@@ -10,6 +10,7 @@ namespace Huffman
             string bin = TextUtils.ToBinary(text);
             TextUtils.PrintBin(bin);
             TextUtils.GetTextLength(text);
+            TextUtils.GetTextLength(bin);
             Console.ReadLine();
         }
     }
