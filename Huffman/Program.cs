@@ -20,12 +20,11 @@ namespace Huffman
             var dictionary = GetCharNbr(text);
             Console.WriteLine(dictionary);
         }
-        public static Dictionary<char, int> GetCharNbr(string text)
-            var occurrences = new Dictionary<char, int>();
-        {
+        public static Dictionary<char, int> GetCharNbr(string text) { 
 
-            {
-            foreach (char c in text)
+            var occurrences = new Dictionary<char, int>();
+            
+            foreach (char c in text) { 
                 if (!occurrences.ContainsKey(c)) occurrences.Add(c, 1);
                 else occurrences[c]++;
             }
