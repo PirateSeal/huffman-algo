@@ -26,9 +26,6 @@ namespace Huffman
             {
                 sw.WriteLine(bin);
             }
-
-            Console.ReadLine();
-
         }
 
         public static string GetText()
