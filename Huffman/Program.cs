@@ -14,6 +14,8 @@ namespace Huffman
             string bin = ToBinary(text);
             PrintBin(bin);
             GetTextLength(text);
+            GetTextLength(bin);
+
             Console.ReadLine();
         }
 
