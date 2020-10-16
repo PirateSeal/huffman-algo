@@ -9,26 +9,24 @@ namespace Huffman
 {
     public static class TextUtils
     {
-        public static void PrintBin(string text)
-        {
-            string bin = text.Aggregate("", (current, b) => current + b);
-            Console.WriteLine(bin);
-        }
 
-        public static Dictionary<char, int> GetCharNbr(string text)
+        public static StepOneAnnalizeModel BuildStepOneModel(string text)
         {
-            var occurrences = new Dictionary<char, int>();
+            StepOneAnnalizeModel model = new StepOneAnnalizeModel() { BinaryString = "", Frequencies = new Dictionary<char, int>(), Length = 0, Bytes = new List<Byte>() };
 
+            foreach(char c in text)
             {
-                foreach (char c in text)
-                    if (!occurrences.ContainsKey(c)) occurrences.Add(c, 1);
-                    else occurrences[c]++;
+                model.Length++;
+
+                if (!model.Frequencies.ContainsKey(c)) model.Frequencies.Add(c, 1);
+                else model.Frequencies[c]++;
+
+                byte cByte = (byte)c;
+                model.Bytes.Add(cByte);
+                model.BinaryString += Convert.ToString(c, 2).PadLeft(8, '0');
             }
-            foreach (var occurrence in occurrences)
-            {
-                Console.WriteLine("{0} occurred {1} times",occurrence.Key,occurrence.Value);
-            }
-            return occurrences;
+
+            return model;
         }
 
         public static Node BuildTree(Dictionary<char, int> frequencies)
@@ -78,23 +76,6 @@ namespace Huffman
             }
 
             throw new Exception();
-        }
-
-        public static void GetTextLength(string text)
-        {
-            var nbChar = 0;
-            foreach (char c in text)
-                nbChar++;
-
-            Console.WriteLine("text length is : {0}", nbChar);
-        }
-
-        public static String ToBinary(string text)
-        {
-            var data = Encoding.ASCII.GetBytes(text);
-
-            return string.Join("",
-                data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
 
         public static BitArray Encode(string source, Node node)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Huffman
 {
@@ -6,7 +7,7 @@ namespace Huffman
     {
         public Node NodeRight { get; set; }
         public Node NodeLeft { get; set; }
-        public char Char { get; set; }
+        public Char Char { get; set; }
         public int Frequency { get; set; }
 
 
